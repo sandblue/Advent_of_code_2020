@@ -14,66 +14,75 @@ def find_highest_seat_id(path):
     return
 
 # triple loop
-def find_missing_seat(path):
+def find_missing_seat_triple_loop(path):
     file = open(path)
     all_value = {}
     for line in file:
         current_line_value = int(find_id(str(line)))
         all_value[current_line_value] = current_line_value
     file.close()
-    x = dict(sorted(all_value.items(), key=lambda item: item[1]))
+    sorted_val = dict(sorted(all_value.items(), key=lambda item: item[1]))
     prev = None
-    for i in x:
+    for i in sorted_val:
         if(prev is None):
             prev = int(i)
         else:
-            if(prev+1 != int(x[i])):  
+            if(prev+1 != int(sorted_val[i])):  
                 print(i-1)    
                 break
             else:
                 prev = int(i)
     return
 
-# un know solution one loop [ un done ]
-def find_missing_seat_not_done(path):
-    def find_missing_seat(path):
+    
+# double loop
+def find_missing_seat_double_loop(path):
     file = open(path)
-    missing_seat = {}
+    all_value = {}
+    highest_id = 0
+    lowest_id = None 
+    for line in file:
+        current_line_value = int(find_id(str(line)))
+        all_value[current_line_value] = current_line_value
+        if(int(highest_id) < int(current_line_value)):
+            highest_id = int(current_line_value)
+        if(lowest_id is None):
+            lowest_id = current_line_value
+        else:
+            if(int(current_line_value) < int(lowest_id)):
+                lowest_id = int(current_line_value)
+        
+    file.close()
+    for i in range(lowest_id, highest_id, 1):
+        if(i not in all_value):
+            print(i)
+            return i 
+    return
+
+#find number that not found -1 +1 
+def find_un_near_seat(path):
+    file = open(path)
     found = {}
     not_found = {}
     for line in file:
         current_line_value = int(line)
         flag = False
-        
-        if(current_line_value + 2 not in found):
-            missing_seat[current_line_value + 2] = None
-        if(current_line_value - 2 not in found):
-            missing_seat[current_line_value - 2] = None
-
-        #  xyx 
-        if(current_line_value + 1 in found):
+        #  xyx z xyx --> result = z
+        if(current_line_value + 1 in found or current_line_value - 1  in found):
             found[current_line_value] = current_line_value
-        if(current_line_value - 1  in found):
-            found[current_line_value] = current_line_value 
+            flag = True
         if(current_line_value + 1 in not_found):
             found[current_line_value + 1] = not_found.pop(current_line_value + 1)
             found[current_line_value] = current_line_value
-            if(current_line_value + 1 in missing_seat):
-                missing_seat.pop(current_line_value)
             flag = True
         if(current_line_value - 1 in not_found ):
             found[current_line_value - 1] = not_found.pop(current_line_value - 1)
             found[current_line_value] = current_line_value
-            if(current_line_value - 1 in missing_seat):
-                missing_seat.pop(current_line_value)
             flag = True
         if(not flag):
             not_found[current_line_value] = current_line_value
-        if(current_line_value in missing_seat):
-            missing_seat.pop(current_line_value)
-            
     file.close()
-    print(missing_seat)
+    print(not_found)
     return
 
     
@@ -118,4 +127,5 @@ def find_column(row_code, min, max):
 
 
 #find_highest_seat_id(str(sys.argv[1]))
-find_missing_seat(str(sys.argv[1]))
+find_missing_seat_double_loop(str(sys.argv[1]))
+#find_missing_seat_triple_loop(str(sys.argv[1]))
