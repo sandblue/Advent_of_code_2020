@@ -1,10 +1,5 @@
 import sys
 
-class Node():
-    count=None
-    lessCountNode=None
-    moreCountNode=None
-
 def find_sum_group_say_yes_count(path):
     file = open(path)
     result = 0

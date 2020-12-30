@@ -1,0 +1,46 @@
+CommandObj
+    -> command
+    -> value
+    -> referenceBy
+    -> forwardTo
+List <CommandObj> = [
+nop +0 --> 1
+acc +1 --> 2
+jmp +4 --> 3
+acc +3 --> 4
+jmp -3 --> 5
+acc -99 --> 6
+acc +1 --> 7
+jmp -4 --> 8
+acc +6 --> 9
+]
+1   ->2
+    <-null
+2   ->3
+    <-1, 5
+3   ->7
+    <-2
+4   ->5
+    <-8
+5   ->2
+    <-4
+6   ->7
+    <-?
+7   ->8
+    <-6
+
+8   ->4
+    <-7
+
+9   -> null
+    <- ??
+
+---------------------------------------------------------------------
+    X   -> 9
+        <- ?
+
+    9   -> null
+        <- X
+
+    -> found key 'nop' index+value      = this.index ?
+    -> found key 'jump' index+1         = this.index ?

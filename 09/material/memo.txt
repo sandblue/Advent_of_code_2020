@@ -1,0 +1,52 @@
+35
+20
+15
+25
+47
+
+1 - need map of possible result
+2 - need list of readed value
+3 - Object PaperClip contain List<result to map>
+
+Object paperClip[35] --> map[55] , map[50] , map[60], map[82]
+
+{
+    55 : [35,20] , 1
+    50 : [35,15] , 1
+    35 : [20,15]
+    60 : [35,20]
+    45 : [20,25]
+    40 : [15,25]
+    82 : [35,47]
+    67 : [20,47]
+    62 : [15,47]
+    72 : [25,47]
+}
+
+at index 6
+input = 40 ? >> 40 in dict ?
+true :
+   append result to dict ? how to delete result from index 1 ? [index 6 - 5 = index 1 value = 35]
+   get Clip that inex and loop ContainList
+   if map result == 1 remove else -1
+   then append result to list
+
+   {
+       35 : [20,15]
+       45 : [20,25]
+       40 : [15,25]
+       67 : [20,47]
+       62 : [15,47]
+       72 : [25,47]
+       60 : [20,40]
+       55 : [15,40]
+       65 : [25,40]
+       87 : [47,40]
+   }
+
+false :
+    return index as a result
+
+at index 7
+
+
